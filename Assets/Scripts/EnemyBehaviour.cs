@@ -156,10 +156,7 @@ public class EnemyBehaviour : MonoBehaviour
         // ** change color here **
         meshRenderer.material.color = Color.green;
         navMeshAgent.SetDestination(currentTargetPoint);
-        distanceFromPoint = Vector3.Distance(transform.position, currentTargetPoint);
-
-        if(distanceFromPoint <= 0.5f/*Mathf.Epsilon*/)
-        {
+        distanceFromPoint = Vector3.Distance(currentTargetPoint, transform.position);
             if(currentPoint == patrolPoints.Length)
             {
                 loopingForward = false;
@@ -169,6 +166,8 @@ public class EnemyBehaviour : MonoBehaviour
                 loopingForward = true;
             }
 
+        if(distanceFromPoint <= 0.5f)
+        {
             if (loopingForward)
             {
                 currentPoint++;
@@ -204,6 +203,14 @@ public class EnemyBehaviour : MonoBehaviour
     {
         meshRenderer.material.color = Color.blue;
         navMeshAgent.SetDestination(currentTargetPoint);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            player.GetComponent<Player>().Death();
+        }
     }
 
     // ------------------------------------------------------------------------------------- methods returning bools

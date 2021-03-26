@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
+
+    //private MeshRenderer meshRenderer;
+    //private BoxCollider boxCollider;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        //meshRenderer = GetComponent<MeshRenderer>();
+        //boxCollider = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -21,6 +27,9 @@ public class PickUp : MonoBehaviour
         if(other.tag == "Player")
         {
             other.GetComponent<Player>().AddPickUp();
+            //meshRenderer.enabled = false;
+            //boxCollider.enabled = false;
+            this.gameObject.SetActive(false);
         }
     }
 }
